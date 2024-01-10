@@ -1,7 +1,9 @@
 import 'package:auto_route/annotations.dart';
 import 'package:cat_akademik_kepolisian/di/injector.dart';
 import 'package:cat_akademik_kepolisian/presentation/blocs/psikotest/psikotest_cubit.dart';
+import 'package:cat_akademik_kepolisian/presentation/widgets/horizontal_question_builder.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/screen_view_builder.dart';
+import 'package:cat_akademik_kepolisian/presentation/widgets/vertical_question_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,42 +22,17 @@ class HomeScreen extends StatelessWidget {
               initial: () => const Center(child: CircularProgressIndicator()),
               loading: () => const Center(child: CircularProgressIndicator()),
               success: () => ScreenViewBuilder(
-                verticalView: () => ListView.separated(
-                  shrinkWrap: true,
-                  itemCount: state.psikotestQustions.length,
-                  itemBuilder: (context, index) {
-                    final question = state.psikotestQustions[index];
-                    return Column(
-                      children: [
-                        Text(question.question),
-                        ...List.generate(question.options.length, (index) {
-                          final answer = question.options[index];
-                          return Text(answer.name);
-                        })
-                      ],
-                    );
-                  },
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 16),
+                verticalView: () => VerticalQuestionBuilder(
+                  question: state.psikotestQustions[state.questionShowingIndex],
+                  questionLength: state.psikotestQustions.length,
+                  currentQuestionIndex: state.questionShowingIndex,
+                  onTapIndex: context.readPsikotestCubit.toQuestion,
                 ),
-                horizontalView: () => GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 3,
-                  ),
-                  shrinkWrap: true,
-                  itemCount: state.psikotestQustions.length,
-                  itemBuilder: (context, index) {
-                    final question = state.psikotestQustions[index];
-                    return Column(
-                      children: [
-                        Text(question.question),
-                        ...List.generate(question.options.length, (index) {
-                          final answer = question.options[index];
-                          return Text(answer.name);
-                        })
-                      ],
-                    );
-                  },
+                horizontalView: () => HorizontalQuestionBuilder(
+                  question: state.psikotestQustions[state.questionShowingIndex],
+                  questionLength: state.psikotestQustions.length,
+                  currentQuestionIndex: state.questionShowingIndex,
+                  onTapIndex: context.readPsikotestCubit.toQuestion,
                 ),
               ),
               orElse: () => const SizedBox.shrink(),
