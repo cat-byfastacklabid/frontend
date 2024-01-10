@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'question_entity.freezed.dart';
 part 'question_entity.g.dart';
 
-@freezed
+@Freezed(makeCollectionsUnmodifiable: false)
 class QuestionEntity with _$QuestionEntity {
   const factory QuestionEntity({
     required String questionId,

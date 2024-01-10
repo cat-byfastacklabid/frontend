@@ -6,6 +6,7 @@ class HorizontalQuestionBuilder extends StatelessWidget {
   final int currentQuestionIndex;
   final QuestionEntity question;
   final Function(int index) onTapIndex;
+  final Function(QuestionEntity question, String optionId) mutateAnswer;
 
   const HorizontalQuestionBuilder({
     super.key,
@@ -13,6 +14,7 @@ class HorizontalQuestionBuilder extends StatelessWidget {
     required this.questionLength,
     required this.currentQuestionIndex,
     required this.onTapIndex,
+    required this.mutateAnswer,
   });
 
   @override
@@ -27,9 +29,17 @@ class HorizontalQuestionBuilder extends StatelessWidget {
                 question.options.length,
                 (index) {
                   final answer = question.options[index];
-                  return InkWell(
-                    onTap: () => onTapIndex(currentQuestionIndex + 1),
-                    child: Text(answer.name),
+                  return Container(
+                    padding: const EdgeInsets.all(8),
+                    margin: const EdgeInsets.all(8),
+                    color: answer.isSelected ? Colors.green : null,
+                    child: InkWell(
+                      onTap: () {
+                        onTapIndex(currentQuestionIndex + 1);
+                        mutateAnswer(question, answer.id);
+                      },
+                      child: Text(answer.name),
+                    ),
                   );
                 },
               ),
