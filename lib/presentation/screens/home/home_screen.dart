@@ -27,11 +27,10 @@ class HomeScreen extends StatelessWidget {
                     final question = state.psikotestQustions[index];
                     return Column(
                       children: [
-                        Text(question.questions),
-                        ...List.generate(question.answerOptions.length,
-                            (index) {
-                          final answer = question.answerOptions[index];
-                          return Text(answer.answer);
+                        Text(question.question),
+                        ...List.generate(question.options.length, (index) {
+                          final answer = question.options[index];
+                          return Text(answer.name);
                         })
                       ],
                     );
@@ -49,11 +48,10 @@ class HomeScreen extends StatelessWidget {
                     final question = state.psikotestQustions[index];
                     return Column(
                       children: [
-                        Text(question.questions),
-                        ...List.generate(question.answerOptions.length,
-                            (index) {
-                          final answer = question.answerOptions[index];
-                          return Text(answer.answer);
+                        Text(question.question),
+                        ...List.generate(question.options.length, (index) {
+                          final answer = question.options[index];
+                          return Text(answer.name);
                         })
                       ],
                     );

@@ -4,7 +4,7 @@ part of 'psikotest_cubit.dart';
 class PsikotestState with _$PsikotestState {
   const factory PsikotestState({
     required ViewState psikotestQustionsState,
-    required List<PsikotestEntity> psikotestQustions,
+    required List<QuestionEntity> psikotestQustions,
   }) = _PsikotestState;
 
   factory PsikotestState.initial() => const PsikotestState(
