@@ -12,6 +12,7 @@ extension ScreenSizeCubitExt on BuildContext {
   ScreenSizeCubit get watchScreenSizeCubit => watch<ScreenSizeCubit>();
 
   ScreenSizeEntity get screenSize => watchScreenSizeCubit.state.screenSize;
+  bool get verticalView => watchScreenSizeCubit.state.screenSize.maxWidth < 600;
 }
 
 @injectable
