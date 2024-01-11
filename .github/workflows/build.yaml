@@ -1,4 +1,4 @@
-name: build
+name: Build Web
 on:
   pull_request:
     types:
@@ -28,5 +28,5 @@ jobs:
         run: flutter build web --release --build-number=$GITHUB_RUN_NUMBER
       - uses: actions/upload-artifact@v3
         with:
-          name: flutter apk binary
+          name: Flutter Web Artifacts
           path: ./build/web/
