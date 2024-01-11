@@ -23,14 +23,14 @@ class HomeScreen extends StatelessWidget {
               loading: () => const Center(child: CircularProgressIndicator()),
               success: () => ScreenViewBuilder(
                 verticalView: () => VerticalQuestionBuilder(
-                  question: state.psikotestQustions[state.questionShowingIndex],
+                  questions: state.psikotestQustions,
                   questionLength: state.psikotestQustions.length,
                   currentQuestionIndex: state.questionShowingIndex,
                   onTapIndex: context.readPsikotestCubit.toQuestion,
                   mutateAnswer: context.readPsikotestCubit.mutateAnswer,
                 ),
                 horizontalView: () => HorizontalQuestionBuilder(
-                  question: state.psikotestQustions[state.questionShowingIndex],
+                  questions: state.psikotestQustions,
                   questionLength: state.psikotestQustions.length,
                   currentQuestionIndex: state.questionShowingIndex,
                   onTapIndex: context.readPsikotestCubit.toQuestion,

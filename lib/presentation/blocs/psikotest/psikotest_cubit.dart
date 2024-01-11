@@ -23,7 +23,9 @@ class PsikotestCubit extends Cubit<PsikotestState> {
       : super(PsikotestState.initial());
 
   void toQuestion(int index) {
-    emit(state.copyWith(questionShowingIndex: index));
+    index == state.psikotestQustions.length
+        ? emit(state.copyWith(questionShowingIndex: 0))
+        : emit(state.copyWith(questionShowingIndex: index));
   }
 
   void getPsikotestQuestions() async {

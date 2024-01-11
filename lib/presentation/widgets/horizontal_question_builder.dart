@@ -1,16 +1,18 @@
 import 'package:cat_akademik_kepolisian/domain/entities/questions/question_entity.dart';
+import 'package:cat_akademik_kepolisian/presentation/widgets/question_builder.dart';
+import 'package:cat_akademik_kepolisian/presentation/widgets/question_index.dart';
 import 'package:flutter/material.dart';
 
 class HorizontalQuestionBuilder extends StatelessWidget {
   final int questionLength;
   final int currentQuestionIndex;
-  final QuestionEntity question;
+  final List<QuestionEntity> questions;
   final Function(int index) onTapIndex;
   final Function(QuestionEntity question, String optionId) mutateAnswer;
 
   const HorizontalQuestionBuilder({
     super.key,
-    required this.question,
+    required this.questions,
     required this.questionLength,
     required this.currentQuestionIndex,
     required this.onTapIndex,
@@ -22,49 +24,21 @@ class HorizontalQuestionBuilder extends StatelessWidget {
     return Row(
       children: [
         Expanded(
-          child: Column(
-            children: [
-              Text(question.question),
-              ...List.generate(
-                question.options.length,
-                (index) {
-                  final answer = question.options[index];
-                  return Container(
-                    padding: const EdgeInsets.all(8),
-                    margin: const EdgeInsets.all(8),
-                    color: answer.isSelected ? Colors.green : null,
-                    child: InkWell(
-                      onTap: () {
-                        onTapIndex(currentQuestionIndex + 1);
-                        mutateAnswer(question, answer.id);
-                      },
-                      child: Text(answer.name),
-                    ),
-                  );
-                },
-              ),
-            ],
+          flex: 2,
+          child: QuestionBuilder(
+            currentQuestionIndex: currentQuestionIndex,
+            mutateAnswer: mutateAnswer,
+            onTapIndex: onTapIndex,
+            question: questions[currentQuestionIndex],
           ),
         ),
         Expanded(
-          child: GridView.builder(
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 5,
-            ),
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: questionLength,
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () => onTapIndex(index),
-                child: Container(
-                  padding: const EdgeInsets.all(8),
-                  margin: const EdgeInsets.all(8),
-                  color: index == currentQuestionIndex ? Colors.green : null,
-                  child: Text('${index + 1}'),
-                ),
-              );
-            },
+          flex: 1,
+          child: QuestionIndex(
+            onTapIndex: (index) => onTapIndex(index),
+            currentIndex: currentQuestionIndex,
+            questionLength: questionLength,
+            questions: questions,
           ),
         )
       ],
