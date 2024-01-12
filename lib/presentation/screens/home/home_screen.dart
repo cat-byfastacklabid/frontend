@@ -1,6 +1,7 @@
-import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:cat_akademik_kepolisian/di/injector.dart';
 import 'package:cat_akademik_kepolisian/presentation/blocs/psikotest/psikotest_cubit.dart';
+import 'package:cat_akademik_kepolisian/presentation/widgets/example_question_builder.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/horizontal_question_builder.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/screen_view_builder.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/vertical_question_builder.dart';
@@ -16,7 +17,23 @@ class HomeScreen extends StatelessWidget {
     return BlocProvider(
       create: (context) => inject<PsikotestCubit>()..getPsikotestQuestions(),
       child: Scaffold(
-        body: BlocBuilder<PsikotestCubit, PsikotestState>(
+        body: BlocConsumer<PsikotestCubit, PsikotestState>(
+          listener: (context, state) {
+            state.psikotestQustionsState.maybeWhen(
+              success: () {
+                if (!state.isExampleDone) {
+                  return showDialog(
+                    context: context,
+                    builder: (dContext) => ExampleQuestionBuilder(
+                      question: state.exampleTest,
+                      onTapDone: context.readPsikotestCubit.finishExample,
+                    ),
+                  );
+                }
+              },
+              orElse: () => const SizedBox.shrink(),
+            );
+          },
           builder: (context, state) {
             return state.psikotestQustionsState.maybeWhen(
               initial: () => const Center(child: CircularProgressIndicator()),
