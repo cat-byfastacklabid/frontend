@@ -73,4 +73,6 @@ class PsikotestCubit extends Cubit<PsikotestState> {
 
     emit(state.copyWith(psikotestQustions: data));
   }
+
+  void submit() async {}
 }

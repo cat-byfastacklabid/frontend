@@ -1,6 +1,7 @@
 import 'package:cat_akademik_kepolisian/domain/entities/questions/question_entity.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/question_builder.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/question_index.dart';
+import 'package:cat_akademik_kepolisian/presentation/widgets/submit_button.dart';
 import 'package:flutter/material.dart';
 
 class VerticalQuestionBuilder extends StatelessWidget {
@@ -36,6 +37,7 @@ class VerticalQuestionBuilder extends StatelessWidget {
           questionLength: questionLength,
           questions: questions,
         ),
+        const SubmitButton(),
       ],
     );
   }

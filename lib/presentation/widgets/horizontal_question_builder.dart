@@ -1,13 +1,14 @@
 import 'package:cat_akademik_kepolisian/domain/entities/questions/question_entity.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/question_builder.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/question_index.dart';
+import 'package:cat_akademik_kepolisian/presentation/widgets/submit_button.dart';
 import 'package:flutter/material.dart';
 
 class HorizontalQuestionBuilder extends StatelessWidget {
   final int questionLength;
   final int currentQuestionIndex;
   final List<QuestionEntity> questions;
-  final Function(int index) onTapIndex;
+  final Function(int index)? onTapIndex;
   final Function(QuestionEntity question, String optionId) mutateAnswer;
 
   const HorizontalQuestionBuilder({
@@ -15,7 +16,7 @@ class HorizontalQuestionBuilder extends StatelessWidget {
     required this.questions,
     required this.questionLength,
     required this.currentQuestionIndex,
-    required this.onTapIndex,
+    this.onTapIndex,
     required this.mutateAnswer,
   });
 
@@ -34,11 +35,17 @@ class HorizontalQuestionBuilder extends StatelessWidget {
         ),
         Expanded(
           flex: 1,
-          child: QuestionIndex(
-            onTapIndex: (index) => onTapIndex(index),
-            currentIndex: currentQuestionIndex,
-            questionLength: questionLength,
-            questions: questions,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              QuestionIndex(
+                onTapIndex: onTapIndex,
+                currentIndex: currentQuestionIndex,
+                questionLength: questionLength,
+                questions: questions,
+              ),
+              const SubmitButton(),
+            ],
           ),
         )
       ],

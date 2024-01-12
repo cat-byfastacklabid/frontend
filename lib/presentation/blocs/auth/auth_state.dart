@@ -9,6 +9,6 @@ class AuthState with _$AuthState {
 
   factory AuthState.initial() => const AuthState(
         authState: ViewState.initial(),
-        userAuth: AuthEntity(password: '', userName: ''),
+        userAuth: AuthEntity(password: '', username: ''),
       );
 }
