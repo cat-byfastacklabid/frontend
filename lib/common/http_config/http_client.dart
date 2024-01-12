@@ -4,11 +4,11 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class HttpConfig {
+class HttpClient {
   final SharedPreferencesConfig sp;
   final Dio client;
 
-  HttpConfig(this.sp, this.client) {
+  HttpClient(this.sp, this.client) {
     _setBaseUrl();
   }
 

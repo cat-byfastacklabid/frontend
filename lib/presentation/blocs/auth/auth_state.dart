@@ -6,16 +6,20 @@ class AuthState with _$AuthState {
     required ViewState authState,
     required AuthEntity userAuth,
     required AuthDataEntity authDataEntity,
+    required TextEditingController usernameController,
+    required TextEditingController passwordController,
   }) = _AuthState;
 
-  factory AuthState.initial() => const AuthState(
-        authState: ViewState.initial(),
-        userAuth: AuthEntity(password: '', username: ''),
-        authDataEntity: AuthDataEntity(
+  factory AuthState.initial() => AuthState(
+        authState: const ViewState.initial(),
+        userAuth: const AuthEntity(password: '', username: ''),
+        authDataEntity: const AuthDataEntity(
           id: '',
           token: '',
-          userCode: '',
+          roleCode: '',
           username: '',
         ),
+        usernameController: TextEditingController(),
+        passwordController: TextEditingController(),
       );
 }

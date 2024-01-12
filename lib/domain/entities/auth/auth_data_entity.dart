@@ -7,7 +7,7 @@ class AuthDataEntity with _$AuthDataEntity {
   const factory AuthDataEntity({
     required String id,
     required String token,
-    required String userCode,
+    required String roleCode,
     required String username,
   }) = _AuthDataEntity;
 

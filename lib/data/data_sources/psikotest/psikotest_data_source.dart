@@ -1,34 +1,24 @@
-import 'package:cat_akademik_kepolisian/common/psikotest_answers/psikotest_answers.dart';
-import 'package:cat_akademik_kepolisian/domain/entities/questions/question_entity.dart';
+import 'package:cat_akademik_kepolisian/common/constants/constants.dart';
+import 'package:cat_akademik_kepolisian/common/http_config/http_client.dart';
 import 'package:cat_akademik_kepolisian/domain/entities/questions/question_response_entity.dart';
 import 'package:cat_akademik_kepolisian/state/data_state/data_state.dart';
+import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
 class PsikotestDataSource {
-  Future<DataState<QuestionResponseEntity>> getPsikotestQuestions() async {
-    final positiveQuestions = List.generate(
-      50,
-      (index) => QuestionEntity(
-        questionId: '${index + 1}',
-        question: 'positive question 1${index + 1}',
-        options: QuestionLocalAnswers.positive,
-      ),
-    );
-    final negativeQuestions = List.generate(
-      50,
-      (index) => QuestionEntity(
-        questionId: '${index + 1}',
-        question: 'negative question 2${index + 1}',
-        options: QuestionLocalAnswers.negative,
-      ),
-    );
-    final response = QuestionResponseEntity(
-      quizTitle: 'quizTitle',
-      question: [...positiveQuestions, ...negativeQuestions],
-    );
+  final HttpClient client;
 
-    return DataState.success(response);
+  const PsikotestDataSource(this.client);
+  Future<DataState<QuestionResponseEntity>> getPsikotestQuestions() async {
+    try {
+      final result = await client.get(APIPath.psikotest);
+      return DataState.success(QuestionResponseEntity.fromJson(result.data));
+    } on DioException catch (e) {
+      return DataState.error('${e.message}', e.response?.statusCode.toString());
+    } catch (e) {
+      return const DataState.error('Unknown Error', '999');
+    }
   }
 
   Future<DataState<bool>> submitPsikotest() async {
