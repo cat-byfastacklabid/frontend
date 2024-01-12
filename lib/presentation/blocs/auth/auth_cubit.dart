@@ -1,3 +1,6 @@
+import 'package:cat_akademik_kepolisian/common/constants/constants.dart';
+import 'package:cat_akademik_kepolisian/common/storage/shared_preferences_config.dart';
+import 'package:cat_akademik_kepolisian/domain/entities/auth/auth_data_entity.dart';
 import 'package:cat_akademik_kepolisian/domain/entities/auth/auth_entity.dart';
 import 'package:cat_akademik_kepolisian/domain/use_cases/auth/log_in_use_case.dart';
 import 'package:cat_akademik_kepolisian/state/view_state/view_state.dart';
@@ -11,8 +14,9 @@ part 'auth_cubit.freezed.dart';
 @injectable
 class AuthCubit extends Cubit<AuthState> {
   final LogInUseCase logInUseCase;
+  final SharedPreferencesConfig sp;
 
-  AuthCubit(this.logInUseCase) : super(AuthState.initial());
+  AuthCubit(this.logInUseCase, this.sp) : super(AuthState.initial());
 
   void logIn(AuthEntity authEntity) async {
     emit(state.copyWith(authState: const ViewState.loading()));
@@ -20,10 +24,18 @@ class AuthCubit extends Cubit<AuthState> {
     final result = await logInUseCase.call(authEntity);
 
     result.when(
-      success: (_) =>
-          emit(state.copyWith(authState: const ViewState.success())),
-      error: (message, errorCode) =>
-          emit(state.copyWith(authState: ViewState.error(message, errorCode))),
+      success: (data) async {
+        await sp.setString(Constants.tokenKey, data.data.token);
+        emit(
+          state.copyWith(
+            authState: const ViewState.success(),
+            authDataEntity: data.data,
+          ),
+        );
+      },
+      error: (message, errorCode) => emit(
+        state.copyWith(authState: ViewState.error(message, errorCode)),
+      ),
     );
   }
 }
