@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cat_akademik_kepolisian/domain/entities/questions/option_entity.dart';
 import 'package:cat_akademik_kepolisian/domain/entities/questions/question_entity.dart';
+import 'package:cat_akademik_kepolisian/presentation/blocs/screen_size/screen_size_cubit.dart';
+import 'package:cat_akademik_kepolisian/presentation/widgets/option_button_widget.dart';
+import 'package:cat_akademik_kepolisian/presentation/widgets/question_card_widget.dart';
 import 'package:flutter/material.dart';
 
 class ExampleQuestionBuilder extends StatefulWidget {
@@ -35,29 +38,32 @@ class _ExampleQuestionBuilderState extends State<ExampleQuestionBuilder> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: Column(
-        children: [
-          Text(widget.question.question),
-          ...List.generate(widget.question.options.length, (index) {
-            final option = widget.question.options[index];
-            return Container(
-              padding: const EdgeInsets.all(8),
-              margin: const EdgeInsets.all(8),
-              color: option.isSelected ? Colors.green : null,
-              child: InkWell(
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            QuestionCardWidget(
+              question: widget.question.question,
+              width: context.verticalView
+                  ? null
+                  : MediaQuery.sizeOf(context).width * .3,
+            ),
+            ...List.generate(widget.question.options.length, (index) {
+              final option = widget.question.options[index];
+              return OptionButtonWidget(
+                option: option,
                 onTap: () => onTapOption(index),
-                child: Text(option.name),
-              ),
-            );
-          }),
-          ElevatedButton(
-            onPressed: () {
-              context.router.pop();
-              widget.onTapDone?.call();
-            },
-            child: const Text('Done'),
-          ),
-        ],
+              );
+            }),
+            ElevatedButton(
+              onPressed: () {
+                context.router.pop();
+                widget.onTapDone?.call();
+              },
+              child: const Text('Done'),
+            ),
+          ],
+        ),
       ),
     );
   }

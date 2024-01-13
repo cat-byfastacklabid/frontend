@@ -8,6 +8,7 @@ class PsikotestState with _$PsikotestState {
     required int questionShowingIndex,
     required QuestionEntity exampleTest,
     required bool isExampleDone,
+    required String title,
   }) = _PsikotestState;
 
   factory PsikotestState.initial() => const PsikotestState(
@@ -15,6 +16,7 @@ class PsikotestState with _$PsikotestState {
         psikotestQustions: [],
         questionShowingIndex: 0,
         isExampleDone: false,
+        title: '',
         exampleTest: QuestionEntity(
           questionId: '',
           question: '',

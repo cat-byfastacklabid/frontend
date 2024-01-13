@@ -19,6 +19,8 @@ class HttpClient {
     headers['Content-Type'] = 'application/json';
     headers['Authorization'] = 'Bearer $token';
 
+    print(headers);
+
     client.options.headers = headers;
   }
 

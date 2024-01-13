@@ -1,4 +1,6 @@
 import 'package:cat_akademik_kepolisian/domain/entities/questions/question_entity.dart';
+import 'package:cat_akademik_kepolisian/presentation/widgets/option_button_widget.dart';
+import 'package:cat_akademik_kepolisian/presentation/widgets/question_card_widget.dart';
 import 'package:flutter/material.dart';
 
 class QuestionBuilder extends StatelessWidget {
@@ -20,22 +22,18 @@ class QuestionBuilder extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(question.question),
+        QuestionCardWidget(
+            question: '${currentQuestionIndex + 1}. ${question.question}'),
         ...List.generate(
           question.options.length,
           (index) {
             final option = question.options[index];
-            return Container(
-              padding: const EdgeInsets.all(8),
-              margin: const EdgeInsets.all(8),
-              color: option.isSelected ? Colors.green : null,
-              child: InkWell(
-                onTap: () {
-                  onTapIndex?.call(currentQuestionIndex + 1);
-                  mutateAnswer(question, option.id);
-                },
-                child: Text(option.name),
-              ),
+            return OptionButtonWidget(
+              option: option,
+              onTap: () {
+                onTapIndex?.call(currentQuestionIndex + 1);
+                mutateAnswer(question, option.id);
+              },
             );
           },
         ),

@@ -10,6 +10,7 @@ class VerticalQuestionBuilder extends StatelessWidget {
   final List<QuestionEntity> questions;
   final Function(int index)? onTapIndex;
   final Function(QuestionEntity question, String optionId) mutateAnswer;
+  final String title;
 
   const VerticalQuestionBuilder({
     super.key,
@@ -18,27 +19,50 @@ class VerticalQuestionBuilder extends StatelessWidget {
     required this.currentQuestionIndex,
     this.onTapIndex,
     required this.mutateAnswer,
+    required this.title,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
-      children: [
-        QuestionBuilder(
-          currentQuestionIndex: currentQuestionIndex,
-          mutateAnswer: mutateAnswer,
-          onTapIndex: onTapIndex,
-          question: questions[currentQuestionIndex],
+    return Scaffold(
+      appBar: AppBar(title: Text(title)),
+      drawer: Drawer(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: ListView(
+            shrinkWrap: true,
+            children: [
+              const Text(
+                'Nomor Soal',
+                style: TextStyle(fontSize: 16),
+              ),
+              const SizedBox(height: 12),
+              QuestionIndex(
+                onTapIndex: onTapIndex,
+                currentIndex: currentQuestionIndex,
+                questionLength: questionLength,
+                questions: questions,
+              )
+            ],
+          ),
         ),
-        QuestionIndex(
-          onTapIndex: onTapIndex,
-          currentIndex: currentQuestionIndex,
-          questionLength: questionLength,
-          questions: questions,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
+          shrinkWrap: true,
+          children: [
+            QuestionBuilder(
+              currentQuestionIndex: currentQuestionIndex,
+              mutateAnswer: mutateAnswer,
+              onTapIndex: onTapIndex,
+              question: questions[currentQuestionIndex],
+            ),
+            const SizedBox(height: 16),
+            const SubmitButton(),
+          ],
         ),
-        const SubmitButton(),
-      ],
+      ),
     );
   }
 }

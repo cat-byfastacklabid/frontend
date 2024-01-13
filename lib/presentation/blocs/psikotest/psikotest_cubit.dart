@@ -62,6 +62,7 @@ class PsikotestCubit extends Cubit<PsikotestState> {
             psikotestQustionsState: const ViewState.success(),
             psikotestQustions: shuffledData,
             exampleTest: exampleData,
+            title: data.quizTitle,
           ),
         );
       },

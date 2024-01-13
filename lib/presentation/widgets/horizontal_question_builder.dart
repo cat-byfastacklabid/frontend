@@ -10,6 +10,7 @@ class HorizontalQuestionBuilder extends StatelessWidget {
   final List<QuestionEntity> questions;
   final Function(int index)? onTapIndex;
   final Function(QuestionEntity question, String optionId) mutateAnswer;
+  final String title;
 
   const HorizontalQuestionBuilder({
     super.key,
@@ -18,37 +19,45 @@ class HorizontalQuestionBuilder extends StatelessWidget {
     required this.currentQuestionIndex,
     this.onTapIndex,
     required this.mutateAnswer,
+    required this.title,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Expanded(
-          flex: 2,
-          child: QuestionBuilder(
-            currentQuestionIndex: currentQuestionIndex,
-            mutateAnswer: mutateAnswer,
-            onTapIndex: onTapIndex,
-            question: questions[currentQuestionIndex],
-          ),
-        ),
-        Expanded(
-          flex: 1,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              QuestionIndex(
+    return Scaffold(
+      appBar: AppBar(title: Text(title)),
+      body: Padding(
+        padding: const EdgeInsets.all(12),
+        child: Row(
+          children: [
+            Expanded(
+              flex: 2,
+              child: QuestionBuilder(
+                currentQuestionIndex: currentQuestionIndex,
+                mutateAnswer: mutateAnswer,
                 onTapIndex: onTapIndex,
-                currentIndex: currentQuestionIndex,
-                questionLength: questionLength,
-                questions: questions,
+                question: questions[currentQuestionIndex],
               ),
-              const SubmitButton(),
-            ],
-          ),
-        )
-      ],
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              flex: 1,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  QuestionIndex(
+                    onTapIndex: onTapIndex,
+                    currentIndex: currentQuestionIndex,
+                    questionLength: questionLength,
+                    questions: questions,
+                  ),
+                  const SubmitButton(),
+                ],
+              ),
+            )
+          ],
+        ),
+      ),
     );
   }
 }

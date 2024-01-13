@@ -22,6 +22,8 @@ class _LoginScreenState extends State<LoginScreen> {
     inject<SharedPreferencesConfig>().clearData();
   }
 
+  bool obsecurePassword = true;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -54,9 +56,20 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 16),
                     TextFormField(
                       controller: state.passwordController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
+                      obscureText: obsecurePassword,
+                      decoration: InputDecoration(
+                        border: const OutlineInputBorder(),
                         labelText: 'Password',
+                        suffixIcon: IconButton(
+                          onPressed: () => setState(
+                            () => obsecurePassword = !obsecurePassword,
+                          ),
+                          icon: Icon(
+                            obsecurePassword
+                                ? Icons.lock_outline
+                                : Icons.lock_open_outlined,
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(height: 60),
