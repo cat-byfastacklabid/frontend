@@ -1,4 +1,4 @@
-package com.example.cat_akademik_kepolisian
+package com.cat.cat_akademik_kepolisian
 
 import io.flutter.embedding.android.FlutterActivity
 
