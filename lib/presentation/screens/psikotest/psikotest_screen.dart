@@ -9,8 +9,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
-class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+class PsikotestScreen extends StatelessWidget {
+  const PsikotestScreen({super.key});
 
   @override
   Widget build(BuildContext context) {

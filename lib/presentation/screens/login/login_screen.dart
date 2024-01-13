@@ -35,7 +35,8 @@ class _LoginScreenState extends State<LoginScreen> {
             child: BlocConsumer<AuthCubit, AuthState>(
               listener: (context, state) {
                 state.authState.maybeWhen(
-                  success: () => context.router.replaceNamed(PageRoutes.home),
+                  success: () =>
+                      context.router.replaceNamed(PageRoutes.psikotest),
                   orElse: () => const SizedBox.shrink(),
                 );
               },
