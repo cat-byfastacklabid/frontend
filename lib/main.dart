@@ -1,11 +1,14 @@
 import 'package:cat_akademik_kepolisian/di/injector.dart';
 import 'package:cat_akademik_kepolisian/domain/entities/screen_size/screen_size_entity.dart';
+import 'package:cat_akademik_kepolisian/presentation/blocs/auth/auth_cubit.dart';
 import 'package:cat_akademik_kepolisian/presentation/blocs/screen_size/screen_size_cubit.dart';
 import 'package:cat_akademik_kepolisian/presentation/router/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+
   initInjector();
   runApp(const MainApp());
 }
@@ -15,8 +18,11 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => inject<ScreenSizeCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: (context) => inject<ScreenSizeCubit>()),
+        BlocProvider(create: (context) => inject<AuthCubit>()),
+      ],
       child: MaterialApp.router(
         routerConfig: AppRouter().config(),
         builder: (context, child) {

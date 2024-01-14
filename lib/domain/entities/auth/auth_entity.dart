@@ -6,7 +6,7 @@ part 'auth_entity.g.dart';
 @freezed
 class AuthEntity with _$AuthEntity {
   const factory AuthEntity({
-    required String userName,
+    required String username,
     required String password,
   }) = _AuthEntity;
 

@@ -13,8 +13,8 @@ class AppRouter extends _$AppRouter {
           page: LoginRoute.page,
         ),
         AutoRoute(
-          path: PageRoutes.home,
-          page: HomeRoute.page,
+          path: PageRoutes.psikotest,
+          page: PsikotestRoute.page,
         ),
       ];
 }

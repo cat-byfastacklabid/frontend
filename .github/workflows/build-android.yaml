@@ -1,8 +1,5 @@
-name: build
+name: Build Android
 on:
-  pull_request:
-    types:
-      - opened
   push:
     branches:
       - master
@@ -21,12 +18,10 @@ jobs:
       - name: Generate Files
         id: generate-files
         run: dart run build_runner build --delete-conflicting-outputs
-      - name: Enable flutter web
-        run: flutter config --enable-web
-      - name: Build Web
-        id: flutter-build-web
-        run: flutter build web --release --build-number=$GITHUB_RUN_NUMBER
+      - name: Build APK
+        id: flutter-build
+        run: flutter build apk --release --build-number=$GITHUB_RUN_NUMBER
       - uses: actions/upload-artifact@v3
         with:
-          name: flutter apk binary
-          path: ./build/web/
+          name: Flutter APK binary
+          path: ./build/app/outputs/flutter-apk/app-release.apk
