@@ -4,4 +4,5 @@ import 'package:cat_akademik_kepolisian/state/data_state/data_state.dart';
 
 abstract class AuthRepository {
   Future<DataState<AuthResponseEntity>> logIn(AuthEntity payload);
+  Future<DataState<bool>> saveToken(String token);
 }

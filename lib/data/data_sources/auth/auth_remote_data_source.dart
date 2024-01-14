@@ -7,10 +7,10 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-class AuthDataSource {
+class AuthRemoteDataSource {
   final HttpClient httpClient;
 
-  const AuthDataSource(this.httpClient);
+  const AuthRemoteDataSource(this.httpClient);
 
   Future<DataState<AuthResponseEntity>> logIn(AuthEntity payload) async {
     try {

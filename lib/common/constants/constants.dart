@@ -1,5 +1,6 @@
 class Constants {
   static String get tokenKey => 'token-key';
+  static String get authDataKey => 'auth-data-key';
 }
 
 class APIConstants {

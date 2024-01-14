@@ -1,4 +1,5 @@
 import 'package:cat_akademik_kepolisian/domain/entities/questions/question_entity.dart';
+import 'package:cat_akademik_kepolisian/presentation/widgets/avatar_appbar_widget.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/question_builder.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/question_index.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/submit_button.dart';
@@ -25,13 +26,16 @@ class HorizontalQuestionBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
+      appBar: AppBar(
+        title: Text(title),
+        actions: const [AvatarAppbarWidget()],
+      ),
       body: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(32),
         child: Row(
           children: [
             Expanded(
-              flex: 2,
+              flex: 3,
               child: QuestionBuilder(
                 currentQuestionIndex: currentQuestionIndex,
                 mutateAnswer: mutateAnswer,
@@ -39,11 +43,11 @@ class HorizontalQuestionBuilder extends StatelessWidget {
                 question: questions[currentQuestionIndex],
               ),
             ),
-            const SizedBox(width: 16),
+            const SizedBox(width: 32),
             Expanded(
-              flex: 1,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+              flex: 2,
+              child: ListView(
+                shrinkWrap: true,
                 children: [
                   QuestionIndex(
                     onTapIndex: onTapIndex,
@@ -51,7 +55,11 @@ class HorizontalQuestionBuilder extends StatelessWidget {
                     questionLength: questionLength,
                     questions: questions,
                   ),
-                  const SubmitButton(),
+                  const SizedBox(height: 24),
+                  const SizedBox(
+                    height: 70,
+                    child: SubmitButton(),
+                  ),
                 ],
               ),
             )

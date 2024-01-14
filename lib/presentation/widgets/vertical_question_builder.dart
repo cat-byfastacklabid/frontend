@@ -1,4 +1,5 @@
 import 'package:cat_akademik_kepolisian/domain/entities/questions/question_entity.dart';
+import 'package:cat_akademik_kepolisian/presentation/widgets/avatar_appbar_widget.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/question_builder.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/question_index.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/submit_button.dart';
@@ -25,7 +26,10 @@ class VerticalQuestionBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text(title)),
+      appBar: AppBar(
+        title: Text(title),
+        actions: const [AvatarAppbarWidget()],
+      ),
       drawer: Drawer(
         child: Padding(
           padding: const EdgeInsets.all(8.0),

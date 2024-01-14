@@ -15,12 +15,16 @@ class QuestionCardWidget extends StatelessWidget {
       child: SizedBox(
         height: MediaQuery.sizeOf(context).height * .3,
         width: width,
-        child: Center(
-          child: Text(
-            question,
-            style: TextStyle(
-              fontSize: context.verticalView ? 18 : 24,
-              fontWeight: FontWeight.w500,
+        child: Padding(
+          padding: EdgeInsets.all(context.verticalView ? 8.0 : 12.0),
+          child: Center(
+            child: Text(
+              question,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: context.verticalView ? 18 : 24,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ),
         ),

@@ -16,49 +16,51 @@ class PsikotestScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => inject<PsikotestCubit>()..getPsikotestQuestions(),
-      child: BlocConsumer<PsikotestCubit, PsikotestState>(
-        listener: (context, state) {
-          state.psikotestQustionsState.maybeWhen(
-            success: () {
-              if (!state.isExampleDone) {
-                return showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (dContext) => ExampleQuestionBuilder(
-                    question: state.exampleTest,
-                    onTapDone: context.readPsikotestCubit.finishExample,
-                  ),
-                );
-              }
-            },
-            orElse: () => const SizedBox.shrink(),
-          );
-        },
-        builder: (context, state) {
-          return state.psikotestQustionsState.maybeWhen(
-            initial: () => const Center(child: CircularProgressIndicator()),
-            loading: () => const Center(child: CircularProgressIndicator()),
-            success: () => ScreenViewBuilder(
-              verticalView: () => VerticalQuestionBuilder(
-                questions: state.psikotestQustions,
-                questionLength: state.psikotestQustions.length,
-                currentQuestionIndex: state.questionShowingIndex,
-                onTapIndex: context.readPsikotestCubit.toQuestion,
-                mutateAnswer: context.readPsikotestCubit.mutateAnswer,
-                title: state.title,
+      child: Scaffold(
+        body: BlocConsumer<PsikotestCubit, PsikotestState>(
+          listener: (context, state) {
+            state.psikotestQustionsState.maybeWhen(
+              success: () {
+                if (!state.isExampleDone) {
+                  return showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (dContext) => ExampleQuestionBuilder(
+                      question: state.exampleTest,
+                      onTapDone: context.readPsikotestCubit.finishExample,
+                    ),
+                  );
+                }
+              },
+              orElse: () => const SizedBox.shrink(),
+            );
+          },
+          builder: (context, state) {
+            return state.psikotestQustionsState.maybeWhen(
+              initial: () => const Center(child: CircularProgressIndicator()),
+              loading: () => const Center(child: CircularProgressIndicator()),
+              success: () => ScreenViewBuilder(
+                verticalView: () => VerticalQuestionBuilder(
+                  questions: state.psikotestQustions,
+                  questionLength: state.psikotestQustions.length,
+                  currentQuestionIndex: state.questionShowingIndex,
+                  onTapIndex: context.readPsikotestCubit.toQuestion,
+                  mutateAnswer: context.readPsikotestCubit.mutateAnswer,
+                  title: state.title,
+                ),
+                horizontalView: () => HorizontalQuestionBuilder(
+                  questions: state.psikotestQustions,
+                  questionLength: state.psikotestQustions.length,
+                  currentQuestionIndex: state.questionShowingIndex,
+                  onTapIndex: context.readPsikotestCubit.toQuestion,
+                  mutateAnswer: context.readPsikotestCubit.mutateAnswer,
+                  title: state.title,
+                ),
               ),
-              horizontalView: () => HorizontalQuestionBuilder(
-                questions: state.psikotestQustions,
-                questionLength: state.psikotestQustions.length,
-                currentQuestionIndex: state.questionShowingIndex,
-                onTapIndex: context.readPsikotestCubit.toQuestion,
-                mutateAnswer: context.readPsikotestCubit.mutateAnswer,
-                title: state.title,
-              ),
-            ),
-            orElse: () => const SizedBox.shrink(),
-          );
-        },
+              orElse: () => const SizedBox.shrink(),
+            );
+          },
+        ),
       ),
     );
   }

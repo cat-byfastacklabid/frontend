@@ -26,61 +26,58 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => inject<AuthCubit>(),
-      child: Scaffold(
-        body: Center(
-          child: SizedBox(
-            width: context.verticalView
-                ? MediaQuery.sizeOf(context).width * .7
-                : MediaQuery.sizeOf(context).width * .4,
-            child: BlocConsumer<AuthCubit, AuthState>(
-              listener: (context, state) {
-                state.authState.maybeWhen(
-                  success: () =>
-                      context.router.replaceNamed(PageRoutes.psikotest),
-                  orElse: () => const SizedBox.shrink(),
-                );
-              },
-              builder: (context, state) {
-                return Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextFormField(
-                      controller: state.usernameController,
-                      decoration: const InputDecoration(
-                        border: OutlineInputBorder(),
-                        labelText: 'Username',
-                      ),
+    return Scaffold(
+      body: Center(
+        child: SizedBox(
+          width: context.verticalView
+              ? MediaQuery.sizeOf(context).width * .7
+              : MediaQuery.sizeOf(context).width * .4,
+          child: BlocConsumer<AuthCubit, AuthState>(
+            listener: (context, state) {
+              state.authState.maybeWhen(
+                success: () =>
+                    context.router.replaceNamed(PageRoutes.psikotest),
+                orElse: () => const SizedBox.shrink(),
+              );
+            },
+            builder: (context, state) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  TextFormField(
+                    controller: state.usernameController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: 'Username',
                     ),
-                    const SizedBox(height: 16),
-                    TextFormField(
-                      controller: state.passwordController,
-                      obscureText: obsecurePassword,
-                      decoration: InputDecoration(
-                        border: const OutlineInputBorder(),
-                        labelText: 'Password',
-                        suffixIcon: IconButton(
-                          onPressed: () => setState(
-                            () => obsecurePassword = !obsecurePassword,
-                          ),
-                          icon: Icon(
-                            obsecurePassword
-                                ? Icons.lock_outline
-                                : Icons.lock_open_outlined,
-                          ),
+                  ),
+                  const SizedBox(height: 16),
+                  TextFormField(
+                    controller: state.passwordController,
+                    obscureText: obsecurePassword,
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: 'Password',
+                      suffixIcon: IconButton(
+                        onPressed: () => setState(
+                          () => obsecurePassword = !obsecurePassword,
+                        ),
+                        icon: Icon(
+                          obsecurePassword
+                              ? Icons.lock_outline
+                              : Icons.lock_open_outlined,
                         ),
                       ),
                     ),
-                    const SizedBox(height: 60),
-                    ElevatedButton(
-                      onPressed: context.read<AuthCubit>().logIn,
-                      child: const Text('Login'),
-                    ),
-                  ],
-                );
-              },
-            ),
+                  ),
+                  const SizedBox(height: 60),
+                  ElevatedButton(
+                    onPressed: context.read<AuthCubit>().logIn,
+                    child: const Text('Login'),
+                  ),
+                ],
+              );
+            },
           ),
         ),
       ),
