@@ -1,8 +1,10 @@
 import 'dart:math';
 
+import 'package:cat_akademik_kepolisian/domain/entities/answer/answer_response_entity.dart';
 import 'package:cat_akademik_kepolisian/domain/entities/questions/option_entity.dart';
 import 'package:cat_akademik_kepolisian/domain/entities/questions/question_entity.dart';
 import 'package:cat_akademik_kepolisian/domain/use_cases/psikotest/get_psikotest_questions_use_case.dart';
+import 'package:cat_akademik_kepolisian/domain/use_cases/psikotest/submit_psikotest_use_case.dart';
 import 'package:cat_akademik_kepolisian/domain/use_cases/use_case.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,9 +22,12 @@ extension ScreenSizeCubitExt on BuildContext {
 @injectable
 class PsikotestCubit extends Cubit<PsikotestState> {
   final GetPsikotestQuestionsUseCase getPsikotestQuestionsUseCase;
+  final SubmitPsikotestQuestionsUseCase submitPsikotestQuestionsUseCase;
 
-  PsikotestCubit(this.getPsikotestQuestionsUseCase)
-      : super(PsikotestState.initial());
+  PsikotestCubit(
+    this.getPsikotestQuestionsUseCase,
+    this.submitPsikotestQuestionsUseCase,
+  ) : super(PsikotestState.initial());
 
   void toQuestion(int index) {
     index == state.psikotestQustions.length
@@ -117,5 +122,28 @@ class PsikotestCubit extends Cubit<PsikotestState> {
     emit(state.copyWith(exampleTest: question));
   }
 
-  void submit() async {}
+  void submit() async {
+    emit(state.copyWith(answerResponseDataState: const ViewState.loading()));
+
+    final result =
+        await submitPsikotestQuestionsUseCase.call(state.psikotestQustions);
+
+    result.when(
+      success: (data) {
+        emit(
+          state.copyWith(
+            answerResponseData: data.data,
+            answerResponseDataState: const ViewState.success(),
+          ),
+        );
+
+        getPsikotestQuestions();
+      },
+      error: (message, errorCode) => emit(
+        state.copyWith(
+          answerResponseDataState: ViewState.error(message, errorCode),
+        ),
+      ),
+    );
+  }
 }

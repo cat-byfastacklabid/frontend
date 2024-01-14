@@ -9,6 +9,8 @@ class PsikotestState with _$PsikotestState {
     required QuestionEntity exampleTest,
     required bool isExampleDone,
     required String title,
+    required AnswerResponseDataEntity answerResponseData,
+    required ViewState answerResponseDataState,
   }) = _PsikotestState;
 
   factory PsikotestState.initial() => const PsikotestState(
@@ -17,6 +19,8 @@ class PsikotestState with _$PsikotestState {
         questionShowingIndex: 0,
         isExampleDone: false,
         title: '',
+        answerResponseData: AnswerResponseDataEntity(username: '', value: ''),
+        answerResponseDataState: ViewState.initial(),
         exampleTest: QuestionEntity(
           questionId: '',
           question: '',

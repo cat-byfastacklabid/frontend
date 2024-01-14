@@ -18,6 +18,7 @@ class AuthRemoteDataSource {
         path: APIPath.login,
         requestBody: payload.toJson(),
       );
+
       return DataState.success(AuthResponseEntity.fromJson(result.data));
     } on DioException catch (e) {
       return DataState.error('${e.message}', e.response?.statusCode.toString());

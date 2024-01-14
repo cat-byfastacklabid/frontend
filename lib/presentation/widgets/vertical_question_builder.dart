@@ -12,6 +12,8 @@ class VerticalQuestionBuilder extends StatelessWidget {
   final Function(int index)? onTapIndex;
   final Function(QuestionEntity question, String optionId) mutateAnswer;
   final String title;
+  final int timer;
+  final Function()? onSubmit;
 
   const VerticalQuestionBuilder({
     super.key,
@@ -21,6 +23,8 @@ class VerticalQuestionBuilder extends StatelessWidget {
     this.onTapIndex,
     required this.mutateAnswer,
     required this.title,
+    required this.timer,
+    this.onSubmit,
   });
 
   @override
@@ -56,6 +60,16 @@ class VerticalQuestionBuilder extends StatelessWidget {
         child: ListView(
           shrinkWrap: true,
           children: [
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                'Sisa Waktu: $timer',
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
+              ),
+            ),
             QuestionBuilder(
               currentQuestionIndex: currentQuestionIndex,
               mutateAnswer: mutateAnswer,
@@ -63,7 +77,7 @@ class VerticalQuestionBuilder extends StatelessWidget {
               question: questions[currentQuestionIndex],
             ),
             const SizedBox(height: 16),
-            const SubmitButton(),
+            SubmitButton(onTap: onSubmit),
           ],
         ),
       ),

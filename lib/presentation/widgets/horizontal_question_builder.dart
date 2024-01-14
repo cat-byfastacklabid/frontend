@@ -12,6 +12,8 @@ class HorizontalQuestionBuilder extends StatelessWidget {
   final Function(int index)? onTapIndex;
   final Function(QuestionEntity question, String optionId) mutateAnswer;
   final String title;
+  final int timer;
+  final Function()? onSubmit;
 
   const HorizontalQuestionBuilder({
     super.key,
@@ -21,6 +23,8 @@ class HorizontalQuestionBuilder extends StatelessWidget {
     this.onTapIndex,
     required this.mutateAnswer,
     required this.title,
+    required this.timer,
+    this.onSubmit,
   });
 
   @override
@@ -32,37 +36,51 @@ class HorizontalQuestionBuilder extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(32),
-        child: Row(
+        child: Column(
           children: [
-            Expanded(
-              flex: 3,
-              child: QuestionBuilder(
-                currentQuestionIndex: currentQuestionIndex,
-                mutateAnswer: mutateAnswer,
-                onTapIndex: onTapIndex,
-                question: questions[currentQuestionIndex],
+            Align(
+              alignment: Alignment.centerRight,
+              child: Text(
+                'Sisa Waktu: $timer',
+                style: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
               ),
             ),
-            const SizedBox(width: 32),
-            Expanded(
-              flex: 2,
-              child: ListView(
-                shrinkWrap: true,
-                children: [
-                  QuestionIndex(
+            Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: QuestionBuilder(
+                    currentQuestionIndex: currentQuestionIndex,
+                    mutateAnswer: mutateAnswer,
                     onTapIndex: onTapIndex,
-                    currentIndex: currentQuestionIndex,
-                    questionLength: questionLength,
-                    questions: questions,
+                    question: questions[currentQuestionIndex],
                   ),
-                  const SizedBox(height: 24),
-                  const SizedBox(
-                    height: 70,
-                    child: SubmitButton(),
+                ),
+                const SizedBox(width: 32),
+                Expanded(
+                  flex: 2,
+                  child: ListView(
+                    shrinkWrap: true,
+                    children: [
+                      QuestionIndex(
+                        onTapIndex: onTapIndex,
+                        currentIndex: currentQuestionIndex,
+                        questionLength: questionLength,
+                        questions: questions,
+                      ),
+                      const SizedBox(height: 24),
+                      SizedBox(
+                        height: 70,
+                        child: SubmitButton(onTap: onSubmit),
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            )
+                )
+              ],
+            ),
           ],
         ),
       ),

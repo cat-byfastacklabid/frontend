@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:cat_akademik_kepolisian/di/injector.dart';
 import 'package:cat_akademik_kepolisian/presentation/blocs/psikotest/psikotest_cubit.dart';
@@ -9,8 +11,48 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
-class PsikotestScreen extends StatelessWidget {
+class PsikotestScreen extends StatefulWidget {
   const PsikotestScreen({super.key});
+
+  @override
+  State<PsikotestScreen> createState() => _PsikotestScreenState();
+}
+
+class _PsikotestScreenState extends State<PsikotestScreen> {
+  int timeInSec = 60;
+  Timer? _timer;
+
+  void startTimer() {
+    // const oneSec = Duration(seconds: 1);
+    // _timer = Timer.periodic(
+    //   oneSec,
+    //   (Timer timer) {
+    //     if (timeInSec == 0) {
+    //       setState(() {
+    //         timer.cancel();
+    //       });
+    //     } else {
+    //       setState(() {
+    //         timeInSec--;
+    //       });
+    //     }
+    //   },
+    // );
+  }
+
+  @override
+  void initState() {
+    Future.delayed(const Duration(seconds: 60)).then((_) {
+      context.readPsikotestCubit.submit();
+    });
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +69,10 @@ class PsikotestScreen extends StatelessWidget {
                     barrierDismissible: false,
                     builder: (dContext) => ExampleQuestionBuilder(
                       question: state.exampleTest,
-                      onTapDone: context.readPsikotestCubit.finishExample,
+                      onTapDone: () {
+                        context.readPsikotestCubit.finishExample();
+                        startTimer();
+                      },
                     ),
                   );
                 }
@@ -47,6 +92,9 @@ class PsikotestScreen extends StatelessWidget {
                   onTapIndex: context.readPsikotestCubit.toQuestion,
                   mutateAnswer: context.readPsikotestCubit.mutateAnswer,
                   title: state.title,
+                  timer: timeInSec,
+                  onSubmit: () =>
+                      (_timer?.isActive ?? false) ? _timer?.cancel() : null,
                 ),
                 horizontalView: () => HorizontalQuestionBuilder(
                   questions: state.psikotestQustions,
@@ -55,6 +103,9 @@ class PsikotestScreen extends StatelessWidget {
                   onTapIndex: context.readPsikotestCubit.toQuestion,
                   mutateAnswer: context.readPsikotestCubit.mutateAnswer,
                   title: state.title,
+                  timer: timeInSec,
+                  onSubmit: () =>
+                      (_timer?.isActive ?? false) ? _timer?.cancel() : null,
                 ),
               ),
               orElse: () => const SizedBox.shrink(),

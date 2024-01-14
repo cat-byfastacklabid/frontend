@@ -11,4 +11,5 @@ class APIPath {
   static String get apiVersion => 'kepolisian/api/v1/';
   static String get login => 'login';
   static String get psikotest => '$apiVersion/cat-test/kepribadian';
+  static String get submitPsikotest => '$apiVersion/cat-answer/kepribadian';
 }
