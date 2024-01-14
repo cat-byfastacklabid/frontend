@@ -1,8 +1,10 @@
 import 'package:cat_akademik_kepolisian/domain/entities/questions/question_entity.dart';
+import 'package:cat_akademik_kepolisian/presentation/blocs/psikotest/psikotest_cubit.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/avatar_appbar_widget.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/question_builder.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/question_index.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/submit_button.dart';
+import 'package:cat_akademik_kepolisian/presentation/widgets/timer_widget.dart';
 import 'package:flutter/material.dart';
 
 class VerticalQuestionBuilder extends StatelessWidget {
@@ -12,8 +14,6 @@ class VerticalQuestionBuilder extends StatelessWidget {
   final Function(int index)? onTapIndex;
   final Function(QuestionEntity question, String optionId) mutateAnswer;
   final String title;
-  final int timer;
-  final Function()? onSubmit;
 
   const VerticalQuestionBuilder({
     super.key,
@@ -23,8 +23,6 @@ class VerticalQuestionBuilder extends StatelessWidget {
     this.onTapIndex,
     required this.mutateAnswer,
     required this.title,
-    required this.timer,
-    this.onSubmit,
   });
 
   @override
@@ -60,15 +58,8 @@ class VerticalQuestionBuilder extends StatelessWidget {
         child: ListView(
           shrinkWrap: true,
           children: [
-            Align(
-              alignment: Alignment.centerRight,
-              child: Text(
-                'Sisa Waktu: $timer',
-                style: const TextStyle(
-                  fontWeight: FontWeight.w500,
-                  fontSize: 16,
-                ),
-              ),
+            TimerWidget(
+              onTimerEnd: context.readPsikotestCubit.submit,
             ),
             QuestionBuilder(
               currentQuestionIndex: currentQuestionIndex,
@@ -77,7 +68,7 @@ class VerticalQuestionBuilder extends StatelessWidget {
               question: questions[currentQuestionIndex],
             ),
             const SizedBox(height: 16),
-            SubmitButton(onTap: onSubmit),
+            const SubmitButton(),
           ],
         ),
       ),

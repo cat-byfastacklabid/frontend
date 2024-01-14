@@ -17,6 +17,7 @@ part 'psikotest_cubit.freezed.dart';
 
 extension ScreenSizeCubitExt on BuildContext {
   PsikotestCubit get readPsikotestCubit => read<PsikotestCubit>();
+  PsikotestCubit get watchPsikotestCubit => watch<PsikotestCubit>();
 }
 
 @injectable
