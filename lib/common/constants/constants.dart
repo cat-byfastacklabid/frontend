@@ -4,7 +4,7 @@ class Constants {
 }
 
 class APIConstants {
-  static String get baseUrl => 'http://api.prawirahirya.com/';
+  static String get baseUrl => 'https://api.prawirahirya.com/';
 }
 
 class APIPath {
