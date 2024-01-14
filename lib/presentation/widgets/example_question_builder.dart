@@ -42,6 +42,7 @@ class _ExampleQuestionBuilderState extends State<ExampleQuestionBuilder> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            const Text('Contoh soal'),
             QuestionCardWidget(
               question: widget.question.question,
               width: context.verticalView

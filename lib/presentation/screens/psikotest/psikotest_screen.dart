@@ -1,12 +1,9 @@
-import 'dart:async';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:cat_akademik_kepolisian/di/injector.dart';
 import 'package:cat_akademik_kepolisian/presentation/blocs/psikotest/psikotest_cubit.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/example_question_builder.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/horizontal_question_builder.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/screen_view_builder.dart';
-import 'package:cat_akademik_kepolisian/presentation/widgets/timer.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/vertical_question_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

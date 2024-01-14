@@ -19,12 +19,12 @@ class TimerWidget extends StatelessWidget {
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 5),
             child: Text(
-              '$minutes:$seconds',
+              'Sisa Waktu: $minutes:$seconds',
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Colors.black,
                 fontWeight: FontWeight.bold,
-                fontSize: 30,
+                fontSize: 16,
               ),
             ),
           );
