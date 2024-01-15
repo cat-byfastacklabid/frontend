@@ -13,13 +13,13 @@ class TimerWidget extends StatelessWidget {
         duration: const Duration(minutes: 60),
         tween: Tween(begin: const Duration(minutes: 60), end: Duration.zero),
         onEnd: onTimerEnd,
-        builder: (BuildContext context, Duration value, Widget? child) {
+        builder: (context, value, child) {
           final minutes = value.inMinutes;
           final seconds = value.inSeconds % 60;
           return Padding(
             padding: const EdgeInsets.symmetric(vertical: 5),
             child: Text(
-              'Sisa Waktu: $minutes:$seconds',
+              'Sisa Waktu: $minutes:${seconds.toString().length == 1 ? '0$seconds' : seconds}',
               textAlign: TextAlign.center,
               style: const TextStyle(
                 color: Colors.black,

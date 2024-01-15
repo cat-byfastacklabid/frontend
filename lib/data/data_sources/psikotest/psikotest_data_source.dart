@@ -27,17 +27,20 @@ class PsikotestDataSource {
   Future<DataState<AnswerResponseEntity>> submitPsikotest(
       List<QuestionEntity> payload) async {
     try {
-      final List<QuestionAnsweredEntity> data = payload.map((e) {
-        bool isAnswered = e.options.any((element) => element.isSelected);
-        return QuestionAnsweredEntity(
-            question: e.questionId,
-            option: isAnswered
-                ? e.options.firstWhere((element) => element.isSelected).id
-                : '');
-      }).toList();
+      final data = payload
+          .map((e) {
+            bool isAnswered = e.options.any((element) => element.isSelected);
+            return QuestionAnsweredEntity(
+                question: e.questionId,
+                option: isAnswered
+                    ? e.options.firstWhere((element) => element.isSelected).id
+                    : '');
+          })
+          .where((element) => element.option.isNotEmpty)
+          .toList();
       final result = await client.post(
         path: APIPath.submitPsikotest,
-        queryParameters: AnswersEntity(answers: data).toJson(),
+        requestBody: AnswersEntity(answers: data).toJson(),
       );
       return DataState.success(AnswerResponseEntity.fromJson(result.data));
     } on DioException catch (e) {

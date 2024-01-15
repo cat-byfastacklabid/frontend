@@ -133,7 +133,7 @@ class PsikotestCubit extends Cubit<PsikotestState> {
       success: (data) {
         emit(
           state.copyWith(
-            answerResponseData: data.data,
+            answerResponseData: data.data!,
             answerResponseDataState: const ViewState.success(),
           ),
         );
