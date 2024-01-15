@@ -6,7 +6,7 @@ part 'answer_response_entity.g.dart';
 class AnswerResponseEntity with _$AnswerResponseEntity {
   const factory AnswerResponseEntity({
     required String msg,
-    required AnswerResponseDataEntity data,
+    AnswerResponseDataEntity? data,
   }) = _AnswerResponseEntity;
 
   factory AnswerResponseEntity.fromJson(Map<String, dynamic> json) =>

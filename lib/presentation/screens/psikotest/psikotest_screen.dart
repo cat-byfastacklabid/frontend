@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cat_akademik_kepolisian/di/injector.dart';
 import 'package:cat_akademik_kepolisian/presentation/blocs/psikotest/psikotest_cubit.dart';
+import 'package:cat_akademik_kepolisian/presentation/router/app_router.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/example_question_builder.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/horizontal_question_builder.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/screen_view_builder.dart';
@@ -31,6 +32,12 @@ class PsikotestScreen extends StatelessWidget {
                     ),
                   );
                 }
+
+                state.answerResponseDataState.maybeWhen(
+                  success: () => context.router
+                      .replace(ResultRoute(response: state.answerResponseData)),
+                  orElse: () => const SizedBox.shrink(),
+                );
               },
               orElse: () => const SizedBox.shrink(),
             );
