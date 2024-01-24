@@ -23,7 +23,8 @@ class QuestionBuilder extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         QuestionCardWidget(
-            question: '${currentQuestionIndex + 1}. ${question.question}'),
+          question: '${currentQuestionIndex + 1}. ${question.question}',
+        ),
         const SizedBox(height: 12),
         ...List.generate(
           question.options.length,

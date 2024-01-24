@@ -9,6 +9,7 @@ class QuestionEntity with _$QuestionEntity {
     required String questionId,
     required String question,
     required List<OptionEntity> options,
+    String? attachments,
   }) = _QuestionEntity;
 
   factory QuestionEntity.fromJson(Map<String, dynamic> json) =>

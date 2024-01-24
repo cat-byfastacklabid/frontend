@@ -9,6 +9,7 @@ class OptionEntity with _$OptionEntity {
     required String name,
     required String value,
     @Default(false) bool isSelected,
+    @Default(false) bool isImageOptions,
   }) = _OptionEntity;
 
   factory OptionEntity.fromJson(Map<String, dynamic> json) =>

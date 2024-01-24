@@ -32,47 +32,49 @@ class HorizontalQuestionBuilder extends StatelessWidget {
         title: Text(title),
         actions: const [AvatarAppbarWidget()],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(32),
-        child: Column(
-          children: [
-            TimerWidget(
-              onTimerEnd: context.readPsikotestCubit.submit,
-            ),
-            Row(
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: QuestionBuilder(
-                    currentQuestionIndex: currentQuestionIndex,
-                    mutateAnswer: mutateAnswer,
-                    onTapIndex: onTapIndex,
-                    question: questions[currentQuestionIndex],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(32),
+          child: Column(
+            children: [
+              TimerWidget(
+                onTimerEnd: context.readPsikotestCubit.submit,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: QuestionBuilder(
+                      currentQuestionIndex: currentQuestionIndex,
+                      mutateAnswer: mutateAnswer,
+                      onTapIndex: onTapIndex,
+                      question: questions[currentQuestionIndex],
+                    ),
                   ),
-                ),
-                const SizedBox(width: 32),
-                Expanded(
-                  flex: 2,
-                  child: ListView(
-                    shrinkWrap: true,
-                    children: [
-                      QuestionIndex(
-                        onTapIndex: onTapIndex,
-                        currentIndex: currentQuestionIndex,
-                        questionLength: questionLength,
-                        questions: questions,
-                      ),
-                      const SizedBox(height: 24),
-                      const SizedBox(
-                        height: 70,
-                        child: SubmitButton(),
-                      ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ],
+                  const SizedBox(width: 32),
+                  Expanded(
+                    flex: 2,
+                    child: ListView(
+                      shrinkWrap: true,
+                      children: [
+                        QuestionIndex(
+                          onTapIndex: onTapIndex,
+                          currentIndex: currentQuestionIndex,
+                          questionLength: questionLength,
+                          questions: questions,
+                        ),
+                        const SizedBox(height: 24),
+                        const SizedBox(
+                          height: 70,
+                          child: SubmitButton(),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ],
+          ),
         ),
       ),
     );

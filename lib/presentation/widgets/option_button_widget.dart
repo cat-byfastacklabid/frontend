@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cat_akademik_kepolisian/domain/entities/questions/option_entity.dart';
 import 'package:cat_akademik_kepolisian/presentation/blocs/screen_size/screen_size_cubit.dart';
 import 'package:flutter/material.dart';
@@ -40,13 +42,20 @@ class OptionButtonWidget extends StatelessWidget {
               ),
               const SizedBox(width: 12),
               Expanded(
-                  child: Text(
-                option.name,
-                style: TextStyle(
-                  fontSize: context.verticalView ? 12 : 16,
-                  fontWeight: FontWeight.w500,
-                ),
-              )),
+                child: option.isImageOptions
+                    ? Image.memory(
+                        base64Decode(option.name),
+                        height: 30,
+                        fit: BoxFit.cover,
+                      )
+                    : Text(
+                        option.name,
+                        style: TextStyle(
+                          fontSize: context.verticalView ? 12 : 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+              ),
             ],
           ),
         ),
