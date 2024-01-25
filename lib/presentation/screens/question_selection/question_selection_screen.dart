@@ -13,12 +13,12 @@ class QuestionSelectionScreen extends StatelessWidget {
         child: Wrap(
           children: [
             InkWell(
-              onTap: () {},
+              onTap: () => context.router.push(const KetahananRoute()),
               child: const SizedBox(
                 height: 150,
                 width: 150,
                 child: Card(
-                  child: Center(child: Text('TPA')),
+                  child: Center(child: Text('Ketahanan')),
                 ),
               ),
             ),

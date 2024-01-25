@@ -12,6 +12,8 @@ class APIPath {
   static String get login => 'login';
   static String get psikotest => '$apiVersion/cat-test/kepribadian';
   static String get akademik => '$apiVersion/cat-test/akademik';
+  static String get ketahanan => '$apiVersion/cat-test/ketahanan';
   static String get submitPsikotest => '$apiVersion/cat-answer/kepribadian';
   static String get submitAkademik => '$apiVersion/cat-answer/akademik';
+  static String get submitKetahanan => '$apiVersion/cat-answer/ketahanan';
 }
