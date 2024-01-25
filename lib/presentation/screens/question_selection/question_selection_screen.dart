@@ -33,7 +33,7 @@ class QuestionSelectionScreen extends StatelessWidget {
               ),
             ),
             InkWell(
-              onTap: () {},
+              onTap: () => context.router.push(const AkademikRoute()),
               child: const SizedBox(
                 height: 150,
                 width: 150,

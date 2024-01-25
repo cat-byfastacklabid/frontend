@@ -1,5 +1,4 @@
 import 'package:cat_akademik_kepolisian/domain/entities/questions/question_entity.dart';
-import 'package:cat_akademik_kepolisian/presentation/blocs/psikotest/psikotest_cubit.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/avatar_appbar_widget.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/question_builder.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/question_index.dart';
@@ -14,6 +13,7 @@ class VerticalQuestionBuilder extends StatelessWidget {
   final Function(int index)? onTapIndex;
   final Function(QuestionEntity question, String optionId) mutateAnswer;
   final String title;
+  final Function() onTimerEnd;
 
   const VerticalQuestionBuilder({
     super.key,
@@ -23,6 +23,7 @@ class VerticalQuestionBuilder extends StatelessWidget {
     this.onTapIndex,
     required this.mutateAnswer,
     required this.title,
+    required this.onTimerEnd,
   });
 
   @override
@@ -58,9 +59,7 @@ class VerticalQuestionBuilder extends StatelessWidget {
         child: ListView(
           shrinkWrap: true,
           children: [
-            TimerWidget(
-              onTimerEnd: context.readPsikotestCubit.submit,
-            ),
+            TimerWidget(onTimerEnd: onTimerEnd),
             QuestionBuilder(
               currentQuestionIndex: currentQuestionIndex,
               mutateAnswer: mutateAnswer,
