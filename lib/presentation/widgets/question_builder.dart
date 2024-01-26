@@ -30,7 +30,6 @@ class QuestionBuilder extends StatelessWidget {
           question.options.length,
           (index) {
             final option = question.options[index];
-            print(option.name);
             return OptionButtonWidget(
               option: option,
               onTap: () {
