@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:cat_akademik_kepolisian/common/constants/constants.dart';
 import 'package:cat_akademik_kepolisian/di/injector.dart';
-import 'package:cat_akademik_kepolisian/presentation/blocs/psikotest/psikotest_cubit.dart';
+import 'package:cat_akademik_kepolisian/presentation/blocs/akademik/akademik_cubit.dart';
 import 'package:cat_akademik_kepolisian/presentation/router/app_router.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/example_question_builder.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/horizontal_question_builder.dart';
@@ -11,17 +11,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 @RoutePage()
-class PsikotestScreen extends StatelessWidget {
-  const PsikotestScreen({super.key});
+class AkademikScreen extends StatelessWidget {
+  const AkademikScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => inject<PsikotestCubit>()..getPsikotestQuestions(),
+      create: (context) => inject<AkademikCubit>()..getAkademikQuestions(),
       child: Scaffold(
-        body: BlocConsumer<PsikotestCubit, PsikotestState>(
+        body: BlocConsumer<AkademikCubit, AkademikState>(
           listener: (context, state) {
-            state.psikotestQustionsState.maybeWhen(
+            state.akademikQustionsState.maybeWhen(
               success: () {
                 if (!state.isExampleDone) {
                   return showDialog(
@@ -29,7 +29,7 @@ class PsikotestScreen extends StatelessWidget {
                     barrierDismissible: false,
                     builder: (dContext) => ExampleQuestionBuilder(
                       question: state.exampleTest,
-                      onTapDone: context.readPsikotestCubit.finishExample,
+                      onTapDone: context.readAkademikCubit.finishExample,
                     ),
                   );
                 }
@@ -44,28 +44,28 @@ class PsikotestScreen extends StatelessWidget {
             );
           },
           builder: (context, state) {
-            return state.psikotestQustionsState.maybeWhen(
+            return state.akademikQustionsState.maybeWhen(
               initial: () => const Center(child: CircularProgressIndicator()),
               loading: () => const Center(child: CircularProgressIndicator()),
               success: () => ScreenViewBuilder(
                 verticalView: () => VerticalQuestionBuilder(
-                  onSubmit: context.readPsikotestCubit.submit,
-                  questions: state.psikotestQustions,
-                  questionLength: state.psikotestQustions.length,
+                  onSubmit: context.readAkademikCubit.submit,
+                  questions: state.akademikQustions,
+                  questionLength: state.akademikQustions.length,
                   currentQuestionIndex: state.questionShowingIndex,
-                  onTapIndex: context.readPsikotestCubit.toQuestion,
-                  mutateAnswer: context.readPsikotestCubit.mutateAnswer,
-                  questionType: QuestionType.psikotest,
+                  onTapIndex: context.readAkademikCubit.toQuestion,
+                  mutateAnswer: context.readAkademikCubit.mutateAnswer,
+                  questionType: QuestionType.akademik,
                   title: state.title,
                 ),
                 horizontalView: () => HorizontalQuestionBuilder(
-                  onSubmit: context.readPsikotestCubit.submit,
-                  questions: state.psikotestQustions,
-                  questionLength: state.psikotestQustions.length,
+                  onSubmit: context.readAkademikCubit.submit,
+                  questions: state.akademikQustions,
+                  questionLength: state.akademikQustions.length,
                   currentQuestionIndex: state.questionShowingIndex,
-                  onTapIndex: context.readPsikotestCubit.toQuestion,
-                  mutateAnswer: context.readPsikotestCubit.mutateAnswer,
-                  questionType: QuestionType.psikotest,
+                  onTapIndex: context.readAkademikCubit.toQuestion,
+                  mutateAnswer: context.readAkademikCubit.mutateAnswer,
+                  questionType: QuestionType.akademik,
                   title: state.title,
                 ),
               ),

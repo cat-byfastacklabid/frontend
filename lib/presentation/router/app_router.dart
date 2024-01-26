@@ -15,8 +15,20 @@ class AppRouter extends _$AppRouter {
           page: LoginRoute.page,
         ),
         AutoRoute(
+          path: PageRoutes.qustionSelection,
+          page: QuestionSelectionRoute.page,
+        ),
+        AutoRoute(
           path: PageRoutes.psikotest,
           page: PsikotestRoute.page,
+        ),
+        AutoRoute(
+          path: PageRoutes.ketahanan,
+          page: KetahananRoute.page,
+        ),
+        AutoRoute(
+          path: PageRoutes.akademik,
+          page: AkademikRoute.page,
         ),
         AutoRoute(
           path: PageRoutes.result,

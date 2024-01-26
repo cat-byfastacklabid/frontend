@@ -36,7 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
             listener: (context, state) {
               state.authState.maybeWhen(
                 success: () =>
-                    context.router.replaceNamed(PageRoutes.psikotest),
+                    context.router.replaceNamed(PageRoutes.qustionSelection),
                 orElse: () => const SizedBox.shrink(),
               );
             },

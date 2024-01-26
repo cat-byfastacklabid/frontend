@@ -1,5 +1,5 @@
+import 'package:cat_akademik_kepolisian/common/constants/constants.dart';
 import 'package:cat_akademik_kepolisian/domain/entities/questions/question_entity.dart';
-import 'package:cat_akademik_kepolisian/presentation/blocs/psikotest/psikotest_cubit.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/avatar_appbar_widget.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/question_builder.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/question_index.dart';
@@ -14,6 +14,8 @@ class VerticalQuestionBuilder extends StatelessWidget {
   final Function(int index)? onTapIndex;
   final Function(QuestionEntity question, String optionId) mutateAnswer;
   final String title;
+  final Function() onSubmit;
+  final QuestionType questionType;
 
   const VerticalQuestionBuilder({
     super.key,
@@ -23,6 +25,8 @@ class VerticalQuestionBuilder extends StatelessWidget {
     this.onTapIndex,
     required this.mutateAnswer,
     required this.title,
+    required this.onSubmit,
+    required this.questionType,
   });
 
   @override
@@ -58,9 +62,7 @@ class VerticalQuestionBuilder extends StatelessWidget {
         child: ListView(
           shrinkWrap: true,
           children: [
-            TimerWidget(
-              onTimerEnd: context.readPsikotestCubit.submit,
-            ),
+            TimerWidget(onTimerEnd: onSubmit, questionType: questionType),
             QuestionBuilder(
               currentQuestionIndex: currentQuestionIndex,
               mutateAnswer: mutateAnswer,
@@ -68,7 +70,10 @@ class VerticalQuestionBuilder extends StatelessWidget {
               question: questions[currentQuestionIndex],
             ),
             const SizedBox(height: 16),
-            const SubmitButton(),
+            SubmitButton(
+              onTap: onSubmit,
+              questionType: questionType,
+            ),
           ],
         ),
       ),
