@@ -16,8 +16,6 @@ class OptionButtonWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(option.isImageOptions);
-    print(option.name);
     return Container(
       margin: const EdgeInsets.all(4),
       child: InkWell(
