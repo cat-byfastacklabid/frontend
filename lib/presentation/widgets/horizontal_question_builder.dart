@@ -1,3 +1,4 @@
+import 'package:cat_akademik_kepolisian/common/constants/constants.dart';
 import 'package:cat_akademik_kepolisian/domain/entities/questions/question_entity.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/avatar_appbar_widget.dart';
 import 'package:cat_akademik_kepolisian/presentation/widgets/question_builder.dart';
@@ -13,7 +14,8 @@ class HorizontalQuestionBuilder extends StatelessWidget {
   final Function(int index)? onTapIndex;
   final Function(QuestionEntity question, String optionId) mutateAnswer;
   final String title;
-  final Function() onTimerEnd;
+  final QuestionType questionType;
+  final Function() onSubmit;
 
   const HorizontalQuestionBuilder({
     super.key,
@@ -23,7 +25,8 @@ class HorizontalQuestionBuilder extends StatelessWidget {
     this.onTapIndex,
     required this.mutateAnswer,
     required this.title,
-    required this.onTimerEnd,
+    required this.onSubmit,
+    required this.questionType,
   });
 
   @override
@@ -38,7 +41,7 @@ class HorizontalQuestionBuilder extends StatelessWidget {
           padding: const EdgeInsets.all(32),
           child: Column(
             children: [
-              TimerWidget(onTimerEnd: onTimerEnd),
+              TimerWidget(onTimerEnd: onSubmit, questionType: questionType),
               Row(
                 children: [
                   Expanded(
@@ -63,9 +66,12 @@ class HorizontalQuestionBuilder extends StatelessWidget {
                           questions: questions,
                         ),
                         const SizedBox(height: 24),
-                        const SizedBox(
+                        SizedBox(
                           height: 70,
-                          child: SubmitButton(),
+                          child: SubmitButton(
+                            onTap: onSubmit,
+                            questionType: questionType,
+                          ),
                         ),
                       ],
                     ),

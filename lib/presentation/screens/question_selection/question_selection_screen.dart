@@ -28,7 +28,7 @@ class QuestionSelectionScreen extends StatelessWidget {
                 height: 150,
                 width: 150,
                 child: Card(
-                  child: Center(child: Text('Psikotest')),
+                  child: Center(child: Text('Kepribadian')),
                 ),
               ),
             ),
@@ -38,7 +38,7 @@ class QuestionSelectionScreen extends StatelessWidget {
                 height: 150,
                 width: 150,
                 child: Card(
-                  child: Center(child: Text('Kepribadian')),
+                  child: Center(child: Text('Akademik')),
                 ),
               ),
             ),

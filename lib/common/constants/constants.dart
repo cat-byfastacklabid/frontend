@@ -17,3 +17,13 @@ class APIPath {
   static String get submitAkademik => '$apiVersion/cat-answer/akademik';
   static String get submitKetahanan => '$apiVersion/cat-answer/ketahanan';
 }
+
+enum QuestionType {
+  akademik,
+  psikotest,
+  ketahanan;
+
+  bool get isAkademik => this == akademik;
+  bool get isPsikotest => this == psikotest;
+  bool get isKetahanan => this == ketahanan;
+}

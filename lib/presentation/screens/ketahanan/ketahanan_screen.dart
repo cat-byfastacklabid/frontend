@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cat_akademik_kepolisian/common/constants/constants.dart';
 import 'package:cat_akademik_kepolisian/di/injector.dart';
 import 'package:cat_akademik_kepolisian/presentation/blocs/ketahanan/ketahanan_cubit.dart';
 import 'package:cat_akademik_kepolisian/presentation/router/app_router.dart';
@@ -48,21 +49,23 @@ class KetahananScreen extends StatelessWidget {
               loading: () => const Center(child: CircularProgressIndicator()),
               success: () => ScreenViewBuilder(
                 verticalView: () => VerticalQuestionBuilder(
-                  onTimerEnd: context.readKetahananCubit.submit,
+                  onSubmit: context.readKetahananCubit.submit,
                   questions: state.ketahananQustions,
                   questionLength: state.ketahananQustions.length,
                   currentQuestionIndex: state.questionShowingIndex,
                   onTapIndex: context.readKetahananCubit.toQuestion,
                   mutateAnswer: context.readKetahananCubit.mutateAnswer,
+                  questionType: QuestionType.ketahanan,
                   title: state.title,
                 ),
                 horizontalView: () => HorizontalQuestionBuilder(
-                  onTimerEnd: context.readKetahananCubit.submit,
+                  onSubmit: context.readKetahananCubit.submit,
                   questions: state.ketahananQustions,
                   questionLength: state.ketahananQustions.length,
                   currentQuestionIndex: state.questionShowingIndex,
                   onTapIndex: context.readKetahananCubit.toQuestion,
                   mutateAnswer: context.readKetahananCubit.mutateAnswer,
+                  questionType: QuestionType.ketahanan,
                   title: state.title,
                 ),
               ),

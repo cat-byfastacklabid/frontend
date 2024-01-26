@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cat_akademik_kepolisian/common/constants/constants.dart';
 import 'package:cat_akademik_kepolisian/di/injector.dart';
 import 'package:cat_akademik_kepolisian/presentation/blocs/akademik/akademik_cubit.dart';
 import 'package:cat_akademik_kepolisian/presentation/router/app_router.dart';
@@ -48,21 +49,23 @@ class AkademikScreen extends StatelessWidget {
               loading: () => const Center(child: CircularProgressIndicator()),
               success: () => ScreenViewBuilder(
                 verticalView: () => VerticalQuestionBuilder(
-                  onTimerEnd: context.readAkademikCubit.submit,
+                  onSubmit: context.readAkademikCubit.submit,
                   questions: state.akademikQustions,
                   questionLength: state.akademikQustions.length,
                   currentQuestionIndex: state.questionShowingIndex,
                   onTapIndex: context.readAkademikCubit.toQuestion,
                   mutateAnswer: context.readAkademikCubit.mutateAnswer,
+                  questionType: QuestionType.akademik,
                   title: state.title,
                 ),
                 horizontalView: () => HorizontalQuestionBuilder(
-                  onTimerEnd: context.readAkademikCubit.submit,
+                  onSubmit: context.readAkademikCubit.submit,
                   questions: state.akademikQustions,
                   questionLength: state.akademikQustions.length,
                   currentQuestionIndex: state.questionShowingIndex,
                   onTapIndex: context.readAkademikCubit.toQuestion,
                   mutateAnswer: context.readAkademikCubit.mutateAnswer,
+                  questionType: QuestionType.akademik,
                   title: state.title,
                 ),
               ),

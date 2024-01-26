@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:cat_akademik_kepolisian/common/constants/constants.dart';
 import 'package:cat_akademik_kepolisian/di/injector.dart';
 import 'package:cat_akademik_kepolisian/presentation/blocs/psikotest/psikotest_cubit.dart';
 import 'package:cat_akademik_kepolisian/presentation/router/app_router.dart';
@@ -48,21 +49,23 @@ class PsikotestScreen extends StatelessWidget {
               loading: () => const Center(child: CircularProgressIndicator()),
               success: () => ScreenViewBuilder(
                 verticalView: () => VerticalQuestionBuilder(
-                  onTimerEnd: context.readPsikotestCubit.submit,
+                  onSubmit: context.readPsikotestCubit.submit,
                   questions: state.psikotestQustions,
                   questionLength: state.psikotestQustions.length,
                   currentQuestionIndex: state.questionShowingIndex,
                   onTapIndex: context.readPsikotestCubit.toQuestion,
                   mutateAnswer: context.readPsikotestCubit.mutateAnswer,
+                  questionType: QuestionType.psikotest,
                   title: state.title,
                 ),
                 horizontalView: () => HorizontalQuestionBuilder(
-                  onTimerEnd: context.readPsikotestCubit.submit,
+                  onSubmit: context.readPsikotestCubit.submit,
                   questions: state.psikotestQustions,
                   questionLength: state.psikotestQustions.length,
                   currentQuestionIndex: state.questionShowingIndex,
                   onTapIndex: context.readPsikotestCubit.toQuestion,
                   mutateAnswer: context.readPsikotestCubit.mutateAnswer,
+                  questionType: QuestionType.psikotest,
                   title: state.title,
                 ),
               ),
